@@ -116,8 +116,8 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
-//        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-//        setSupportActionBar(myToolbar);
+        // Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        // setSupportActionBar(myToolbar);
 
         getPreferences();
 
@@ -176,7 +176,6 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it
         // is present.
         getMenuInflater().inflate(R.menu.main, menu);
-
 
         // Timebase
         item = menu.findItem(R.id.timebase);
