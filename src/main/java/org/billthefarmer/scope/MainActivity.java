@@ -160,7 +160,6 @@ public class MainActivity extends Activity
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        // Checks the orientation of the screen for landscape and portrait and set portrait mode always
         if (newConfig.orientation ==Configuration.ORIENTATION_LANDSCAPE) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         } else if (newConfig.orientation ==Configuration.ORIENTATION_PORTRAIT){
@@ -230,10 +229,8 @@ public class MainActivity extends Activity
         // State bundle
         Bundle bundle = new Bundle();
 
-
         // Timebase
         bundle.putInt(TIMEBASE, timebase);
-
 
         // Start
         bundle.putFloat(START, scope.start);
@@ -256,14 +253,6 @@ public class MainActivity extends Activity
         int id = item.getItemId();
         switch (id)
         {
-        // Bright line
-        case R.id.bright:
-            audio.bright = !audio.bright;
-            item.setIcon(audio.bright ?
-                         R.drawable.bright_checked :
-                         R.drawable.action_bright);
-            showToast(audio.bright ? R.string.bright_on : R.string.bright_off);
-            break;
 
         // Timebase
         case R.id.timebase:
@@ -484,7 +473,6 @@ public class MainActivity extends Activity
     void showTimebase(int timebase)
     {
         String text = "Timebase: " + strings[timebase];
-
         showToast(text);
     }
 
