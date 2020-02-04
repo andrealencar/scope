@@ -24,9 +24,6 @@
 package org.billthefarmer.scope;
 
 import android.Manifest;
-import android.app.ActionBar;
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -40,6 +37,9 @@ import android.media.AudioTrack;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,7 +53,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 // SpectrumActivity
-public class SpectrumActivity extends Activity
+public class SpectrumActivity extends AppCompatActivity
     implements View.OnClickListener
 {
     private static final String PREF_INPUT = "pref_input";
@@ -99,7 +99,7 @@ public class SpectrumActivity extends Activity
             spectrum.setOnClickListener(this);
 
         // Enable back navigation on action bar
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(R.string.spectrum);
 
@@ -326,7 +326,7 @@ public class SpectrumActivity extends Activity
     void showAlert(int appName, int errorBuffer)
     {
         // Create an alert dialog builder
-        AlertDialog.Builder builder =
+        android.support.v7.app.AlertDialog.Builder builder =
             new AlertDialog.Builder(this);
 
         // Set the title, message and button

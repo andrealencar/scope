@@ -23,18 +23,18 @@
 
 package org.billthefarmer.scope;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 // HelpActivity
-public class HelpActivity extends Activity
+public class HelpActivity extends AppCompatActivity
 {
     private static final String PREF_DARK = "pref_dark";
 
@@ -65,7 +65,7 @@ public class HelpActivity extends Activity
         }
 
         // Enable back navigation on action bar
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
     }

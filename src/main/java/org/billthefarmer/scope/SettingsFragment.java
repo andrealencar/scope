@@ -22,8 +22,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 package org.billthefarmer.scope;
-
-import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -32,6 +30,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.support.v7.app.ActionBar;
 
 // SettingsFragment
 @SuppressWarnings("deprecation")
@@ -100,8 +99,8 @@ public class SettingsFragment extends android.preference.PreferenceFragment
         if (preference instanceof PreferenceScreen)
         {
             Dialog dialog = ((PreferenceScreen) preference).getDialog();
-            ActionBar actionBar = dialog.getActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(false);
+            //ActionBar actionBar = dialog.getActionBar();
+            //actionBar.setDisplayHomeAsUpEnabled(false);
         }
 
         return result;

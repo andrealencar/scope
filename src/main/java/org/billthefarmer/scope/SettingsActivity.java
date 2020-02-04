@@ -23,15 +23,15 @@
 
 package org.billthefarmer.scope;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 // SettingsActivity
-public class SettingsActivity extends Activity
+public class SettingsActivity extends AppCompatActivity
 {
     private static final String KEY_PREF_DARK = "pref_dark";
 
@@ -53,12 +53,12 @@ public class SettingsActivity extends Activity
             setTheme(R.style.AppDarkTheme);
 
         // Display the fragment as the main content.
-        getFragmentManager().beginTransaction()
-        .replace(android.R.id.content, new SettingsFragment())
+        getSupportFragmentManager().beginTransaction()
+        //.replace(android.R.id.content, new SettingsFragment())
         .commit();
 
         // Enable back navigation on action bar
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(R.string.settings);
     }

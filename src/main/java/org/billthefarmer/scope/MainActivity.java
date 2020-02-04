@@ -24,9 +24,6 @@
 package org.billthefarmer.scope;
 
 import android.Manifest;
-import android.app.ActionBar;
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -40,6 +37,9 @@ import android.media.AudioTrack;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,7 +49,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 // MainActivity
-public class MainActivity extends Activity
+public class MainActivity extends AppCompatActivity
 {
     private static final String PREF_INPUT = "pref_input";
     private static final String PREF_SCREEN = "pref_screen";
@@ -132,7 +132,7 @@ public class MainActivity extends Activity
         unit = findViewById(R.id.unit);
 
         // Get action bar
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
 
         // Set short title
         if (actionBar != null)
@@ -601,7 +601,7 @@ public class MainActivity extends Activity
     {
         // Create an alert dialog builder
         AlertDialog.Builder builder =
-            new AlertDialog.Builder(this);
+            new android.support.v7.app.AlertDialog.Builder(this);
 
         // Set the title, message and button
         builder.setTitle(appName);

@@ -2,19 +2,20 @@
 
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="AlwaysShowAction">
 
   <item
       android:id="@+id/drawer"
       android:icon="@drawable/ic_action_storage"
-      android:showAsAction="always"
+      app:showAsAction="always"
       android:title="@string/action_timebase">
         <menu>
           <item android:id="@+id/new_game"
               android:icon="@drawable/ic_action_back"
               android:title="voltar"
-              android:showAsAction="ifRoom"/>
+              app:showAsAction="ifRoom"/>
           <item android:id="@+id/help"
               android:icon="@drawable/ic_action_back"
               android:title="Teste" />
@@ -24,7 +25,7 @@
   <item
       android:id="@+id/timebase"
       android:icon="@drawable/ic_action_time"
-      android:showAsAction="always"
+      app:showAsAction="always"
       android:title="@string/action_timebase">
 
     <menu>
@@ -87,43 +88,43 @@
   <item
       android:id="@+id/left"
       android:icon="@drawable/ic_action_previous_item"
-      android:showAsAction="always"
+      app:showAsAction="always"
       android:title="@string/action_left" />
 
   <item
       android:id="@+id/right"
       android:icon="@drawable/ic_action_next_item"
-      android:showAsAction="always"
+      app:showAsAction="always"
       android:title="@string/action_right" />
 
   <item
       android:id="@+id/start"
       android:icon="@drawable/ic_action_back"
-      android:showAsAction="ifRoom"
+      app:showAsAction="ifRoom"
       android:title="@string/action_start" />
 
   <item
       android:id="@+id/end"
       android:icon="@drawable/ic_action_forward"
-      android:showAsAction="ifRoom"
+      app:showAsAction="ifRoom"
       android:title="@string/action_end" />
 
   <item
       android:id="@+id/action_spectrum"
       android:icon="@drawable/ic_action_network_cell"
-      android:showAsAction="ifRoom"
+      app:showAsAction="ifRoom"
       android:title="@string/action_spectrum" />
 
   <item
       android:id="@+id/action_help"
       android:icon="@drawable/ic_action_help"
-      android:showAsAction="ifRoom"
+      app:showAsAction="ifRoom"
       android:title="@string/action_help" />
 
   <item
       android:id="@+id/action_settings"
       android:icon="@drawable/ic_action_settings"
-      android:showAsAction="ifRoom"
+      app:showAsAction="ifRoom"
       android:title="@string/action_settings" />
 
 </menu>
