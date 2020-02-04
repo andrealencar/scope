@@ -8,6 +8,16 @@
     android:layout_height="match_parent"
     tools:ignore="RtlHardcoded">
 
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/my_toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="?attr/colorPrimary"
+      android:elevation="4dp"
+      android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+
   <org.billthefarmer.scope.YScale
       android:id="@+id/yscale"
       android:layout_width="wrap_content"
@@ -20,11 +30,15 @@
 
   <org.billthefarmer.scope.Scope
       android:id="@id/scope"
-      android:layout_width="wrap_content"
+      android:layout_width="384dp"
       android:layout_height="wrap_content"
       android:layout_above="@+id/xscale"
-      android:layout_alignParentRight="true"
       android:layout_alignParentTop="true"
+      android:layout_alignParentRight="true"
+      android:layout_marginLeft="5dp"
+      android:layout_marginTop="53dp"
+      android:layout_marginRight="0dp"
+      android:layout_marginBottom="14dp"
       android:layout_toRightOf="@id/yscale" />
 
   <org.billthefarmer.scope.XScale
