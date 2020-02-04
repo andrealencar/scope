@@ -29,7 +29,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.media.AudioFormat;
 import android.media.AudioManager;
@@ -57,10 +59,10 @@ public class MainActivity extends Activity
 
     private static final String STATE = "state";
 
-    private static final String BRIGHT = "bright";
+    //private static final String BRIGHT = "bright";
     private static final String SINGLE = "single";
     private static final String TIMEBASE = "timebase";
-    private static final String STORAGE = "storage";
+    //private static final String STORAGE = "storage";
 
     private static final String START = "start";
     private static final String INDEX = "index";
@@ -114,10 +116,12 @@ public class MainActivity extends Activity
     {
         super.onCreate(savedInstanceState);
 
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
         // Get preferences
         getPreferences();
 
-        if (dark)
+        if (!dark)
             setTheme(R.style.AppDarkTheme);
 
         setContentView(R.layout.activity_main);
@@ -153,6 +157,17 @@ public class MainActivity extends Activity
         }
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Checks the orientation of the screen for landscape and portrait and set portrait mode always
+        if (newConfig.orientation ==Configuration.ORIENTATION_LANDSCAPE) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        } else if (newConfig.orientation ==Configuration.ORIENTATION_PORTRAIT){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+    }
+
     // onCreateOptionsMenu
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -163,17 +178,6 @@ public class MainActivity extends Activity
         // is present.
         getMenuInflater().inflate(R.menu.main, menu);
 
-        // Set menu state from restored state
-
-        // Bright
-        item = menu.findItem(R.id.bright);
-        item.setIcon(audio.bright ? R.drawable.bright_checked :
-                     R.drawable.action_bright);
-
-        // Single
-        item = menu.findItem(R.id.single);
-        item.setIcon(audio.single ? R.drawable.single_checked :
-                     R.drawable.action_single);
 
         // Timebase
         item = menu.findItem(R.id.timebase);
@@ -188,12 +192,6 @@ public class MainActivity extends Activity
             }
         }
 
-        // Storage
-        item = menu.findItem(R.id.storage);
-        item.setIcon(scope.storage ?
-                     R.drawable.storage_checked :
-                     R.drawable.action_storage);
-
         return true;
     }
 
@@ -206,18 +204,9 @@ public class MainActivity extends Activity
         // Get saved state bundle
         Bundle bundle = savedInstanceState.getBundle(STATE);
 
-        // Bright
-        audio.bright = bundle.getBoolean(BRIGHT, false);
-
-        // Single
-        audio.single = bundle.getBoolean(SINGLE, false);
-
         // Timebase
         timebase = bundle.getInt(TIMEBASE, DEFAULT_TIMEBASE);
         setTimebase(timebase, false);
-
-        // Storage
-        scope.storage = bundle.getBoolean(STORAGE, false);
 
         // Start
         scope.start = bundle.getFloat(START, 0);
@@ -241,17 +230,10 @@ public class MainActivity extends Activity
         // State bundle
         Bundle bundle = new Bundle();
 
-        // Bright
-        bundle.putBoolean(BRIGHT, audio.bright);
-
-        // Single
-        bundle.putBoolean(SINGLE, audio.single);
 
         // Timebase
         bundle.putInt(TIMEBASE, timebase);
 
-        // Storage
-        bundle.putBoolean(STORAGE, scope.storage);
 
         // Start
         bundle.putFloat(START, scope.start);
@@ -281,21 +263,6 @@ public class MainActivity extends Activity
                          R.drawable.bright_checked :
                          R.drawable.action_bright);
             showToast(audio.bright ? R.string.bright_on : R.string.bright_off);
-            break;
-
-        // Single shot
-        case R.id.single:
-            audio.single = !audio.single;
-            item.setIcon(audio.single ?
-                         R.drawable.single_checked :
-                         R.drawable.action_single);
-            showToast(audio.single ? R.string.single_on : R.string.single_off);
-            break;
-
-        // Trigger
-        case R.id.trigger:
-            if (audio.single)
-                audio.trigger = true;
             break;
 
         // Timebase
@@ -387,25 +354,6 @@ public class MainActivity extends Activity
             timebase = 11;
             item.setChecked(true);
             setTimebase(timebase, true);
-            break;
-
-        // Storage
-        case R.id.storage:
-            if (scope != null)
-            {
-                scope.storage = !scope.storage;
-                item.setIcon(scope.storage ?
-                             R.drawable.storage_checked :
-                             R.drawable.action_storage);
-                showToast(scope.storage ?
-                          R.string.storage_on : R.string.storage_off);
-            }
-            break;
-
-        // Clear
-        case R.id.clear:
-            if ((scope != null) && scope.storage)
-                scope.clear = true;
             break;
 
         // Left

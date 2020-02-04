@@ -22,7 +22,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 package org.billthefarmer.scope;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;

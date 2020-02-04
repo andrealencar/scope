@@ -4,23 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="AlwaysShowAction">
 
-  <item
-      android:id="@+id/bright"
-      android:icon="@drawable/action_bright"
-      android:showAsAction="always"
-      android:title="@string/action_bright_line" />
-
-  <item
-      android:id="@+id/single"
-      android:icon="@drawable/action_single"
-      android:showAsAction="always"
-      android:title="@string/action_single_shot" />
-
-  <item
-      android:id="@+id/trigger"
-      android:icon="@drawable/ic_action_repeat"
-      android:showAsAction="always"
-      android:title="@string/action_trigger" />
 
   <item
       android:id="@+id/timebase"
@@ -84,17 +67,6 @@
     </menu>
   </item>
 
-  <item
-      android:id="@+id/storage"
-      android:icon="@drawable/action_storage"
-      android:showAsAction="always"
-      android:title="@string/action_storage" />
-
-  <item
-      android:id="@+id/clear"
-      android:icon="@drawable/ic_action_refresh"
-      android:showAsAction="always"
-      android:title="@string/action_clear" />
 
   <item
       android:id="@+id/left"
