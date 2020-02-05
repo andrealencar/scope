@@ -47,6 +47,7 @@ public class docDetailActivity extends AppCompatActivity {
             Bundle arguments = new Bundle();
             arguments.putString(docDetailFragment.ARG_ITEM_ID,
                     getIntent().getStringExtra(docDetailFragment.ARG_ITEM_ID));
+
             docDetailFragment fragment = new docDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()

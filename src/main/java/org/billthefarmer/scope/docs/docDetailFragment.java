@@ -1,8 +1,10 @@
 package org.billthefarmer.scope.docs;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,9 +60,18 @@ public class docDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.doc_detail, container, false);
 
-        // Show the dummy content as text in a TextView.
+
+        String html_ = "<h2>Title</h2><br><p>Description here</p>";
+
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.doc_detail)).setText(mItem.details);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                ((TextView) rootView.findViewById(R.id.doc_detail)).setText(Html.fromHtml(html_, Html.FROM_HTML_MODE_COMPACT));
+            } else {
+                ((TextView) rootView.findViewById(R.id.doc_detail)).setText(Html.fromHtml(html_));
+            }
+
+
         }
 
         return rootView;

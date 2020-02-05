@@ -74,7 +74,8 @@
 
     <string name="pref_about">About</string>
     <string name="pref_about_summ">Scope <a href="https://github.com/billthefarmer/scope/releases/latest">version %s</a></string>
-    <string name="title_doc_list">docs</string>
-    <string name="title_doc_detail">doc Detail</string>
+    <string name="title_doc_list">Documentos</string>
+    <string name="title_doc_detail">Detalhes</string>
+    <string name="title_activity_calc">Calculadora</string>
 
 </resources>

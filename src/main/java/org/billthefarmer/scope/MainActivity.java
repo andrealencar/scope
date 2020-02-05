@@ -47,6 +47,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import org.billthefarmer.scope.calc.CalcActivity;
 import org.billthefarmer.scope.docs.docListActivity;
 
 // MainActivity
@@ -405,7 +406,7 @@ public class MainActivity extends AppCompatActivity
     // On calc click
     private boolean onCalcClick(MenuItem item)
     {
-        Intent intent = new Intent(this, SettingsActivity.class);
+        Intent intent = new Intent(this, CalcActivity.class);
         startActivity(intent);
         return true;
     }

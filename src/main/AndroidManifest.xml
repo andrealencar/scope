@@ -15,6 +15,15 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
         <activity
+            android:name=".calc.CalcActivity"
+            android:label="@string/title_activity_calc"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.billthefarmer.scope.MainActivity" />
+        </activity>
+        <activity
             android:name=".docs.docListActivity"
             android:label="@string/title_doc_list"
             android:parentActivityName=".MainActivity"
@@ -41,10 +50,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SpectrumActivity"></activity>
+        <activity android:name=".SpectrumActivity" />
         <activity
             android:name=".HelpActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SettingsActivity"
             android:screenOrientation="portrait" />
