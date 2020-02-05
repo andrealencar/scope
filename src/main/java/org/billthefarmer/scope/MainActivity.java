@@ -56,13 +56,10 @@ public class MainActivity extends AppCompatActivity
     private static final String PREF_DARK = "pref_dark";
 
     private static final String TAG = "Scope";
-
     private static final String STATE = "state";
 
-    //private static final String BRIGHT = "bright";
     private static final String SINGLE = "single";
     private static final String TIMEBASE = "timebase";
-    //private static final String STORAGE = "storage";
 
     private static final String START = "start";
     private static final String INDEX = "index";
