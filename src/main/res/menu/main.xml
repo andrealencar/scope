@@ -7,19 +7,18 @@
     tools:ignore="AlwaysShowAction">
 
   <item
-      android:id="@+id/drawer"
-      android:icon="@drawable/ic_action_storage"
+      android:id="@+id/action_calc"
+      android:icon="@drawable/ic_calc_40"
       app:showAsAction="always"
-      android:title="@string/action_timebase">
-        <menu>
-          <item android:id="@+id/new_game"
-              android:icon="@drawable/ic_action_back"
-              android:title="voltar"
-              app:showAsAction="ifRoom"/>
-          <item android:id="@+id/help"
-              android:icon="@drawable/ic_action_back"
-              android:title="Teste" />
-        </menu>
+      android:title="Funções">
+
+  </item>
+
+  <item
+      android:id="@+id/action_docs"
+      android:icon="@drawable/ic_docs_40"
+      app:showAsAction="always"
+      android:title="Funções">
 
   </item>
   <item
@@ -85,17 +84,6 @@
   </item>
 
 
-  <item
-      android:id="@+id/left"
-      android:icon="@drawable/ic_action_previous_item"
-      app:showAsAction="always"
-      android:title="@string/action_left" />
-
-  <item
-      android:id="@+id/right"
-      android:icon="@drawable/ic_action_next_item"
-      app:showAsAction="always"
-      android:title="@string/action_right" />
 
   <item
       android:id="@+id/start"

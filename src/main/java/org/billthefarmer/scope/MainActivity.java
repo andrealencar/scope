@@ -39,7 +39,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,6 +46,8 @@ import android.view.SubMenu;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import org.billthefarmer.scope.docs.docListActivity;
 
 // MainActivity
 public class MainActivity extends AppCompatActivity
@@ -113,10 +114,8 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
-        // Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        // setSupportActionBar(myToolbar);
-
         getPreferences();
+
 
         if (!dark)
             setTheme(R.style.AppDarkTheme);
@@ -130,11 +129,12 @@ public class MainActivity extends AppCompatActivity
 
         // Get action bar
         ActionBar actionBar = getSupportActionBar();
+        //actionBar.hide();
+        actionBar.setTitle("Osciloscópio");
 
-        // Set short title
-        if (actionBar != null)
-            actionBar.setTitle(R.string.short_name);
-
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.ic_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
         // Create audio
         audio = new Audio();
 
@@ -341,31 +341,14 @@ public class MainActivity extends AppCompatActivity
             setTimebase(timebase, true);
             break;
 
-        // Left
-        case R.id.left:
-            if (scope != null && xscale != null)
-            {
-                scope.start -= xscale.step;
-                if (scope.start < 0)
-                    scope.start = 0;
 
-                xscale.start = scope.start;
-                xscale.postInvalidate();
-            }
-            break;
+        //Calc
+            case R.id.action_calc:
+                return onCalcClick(item);
 
-        // Right
-        case R.id.right:
-            if (scope != null && xscale != null)
-            {
-                scope.start += xscale.step;
-                if (scope.start >= audio.length)
-                    scope.start -= xscale.step;
-
-                xscale.start = scope.start;
-                xscale.postInvalidate();
-            }
-            break;
+        //Docs
+            case R.id.action_docs:
+                return onDocsClick(item);
 
         // Start
         case R.id.start:
@@ -408,6 +391,22 @@ public class MainActivity extends AppCompatActivity
             return false;
         }
 
+        return true;
+    }
+
+    // On docs click
+    private boolean onDocsClick(MenuItem item)
+    {
+        Intent intent = new Intent(this, docListActivity.class);
+        startActivity(intent);
+        return true;
+    }
+
+    // On calc click
+    private boolean onCalcClick(MenuItem item)
+    {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
         return true;
     }
 
