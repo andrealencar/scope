@@ -28,7 +28,7 @@ android {
 
     defaultConfig {
         applicationId "org.billthefarmer.scope"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 124
         versionName "1.24"
@@ -45,6 +45,7 @@ android {
                 'CustomViewStyleable'
         // abortOnError false
     }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 }
 
 dependencies {

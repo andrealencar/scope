@@ -1,39 +1,41 @@
 package org.billthefarmer.scope.docs;
 import android.app.Activity;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import org.billthefarmer.scope.R;
 import org.billthefarmer.scope.docs.dummy.DummyContent;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
-/**
- * A fragment representing a single doc detail screen.
- * This fragment is either contained in a {@link docListActivity}
- * in two-pane mode (on tablets) or a {@link docDetailActivity}
- * on handsets.
- */
+
 public class docDetailFragment extends Fragment {
-    /**
-     * The fragment argument representing the item ID that this fragment
-     * represents.
-     */
-    public static final String ARG_ITEM_ID = "item_id";
 
-    /**
-     * The dummy content this fragment is presenting.
-     */
+    public static final String ARG_ITEM_ID = "item_id";
     private DummyContent.DummyItem mItem;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+    String contents = "";
+    String ImageUri = "";
+    InputStream ims = null;
+
     public docDetailFragment() {
     }
 
@@ -42,10 +44,35 @@ public class docDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
+
             mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+
+            String file_name = mItem.id+".html";
+            AssetManager mngr = getContext().getAssets();
+            ImageUri = mItem.image;
+
+            BufferedReader reader = null;
+            String mLine;
+
+            try {
+                reader = new BufferedReader(new InputStreamReader(mngr.open(file_name)));
+                ims = mngr.open("wave_audio.png");
+
+                while ((mLine = reader.readLine()) != null) {
+                        contents += '\n' + mLine;
+
+                }
+            } catch (IOException e) {
+                            Log.e("ERROR message: ",e.getMessage());
+            } finally {
+                if (reader != null) {
+                    try {
+                            reader.close();
+                    } catch (IOException e) {
+                            Log.e("ERROR message: ",e.getMessage());
+                    }
+                }
+            }
 
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
@@ -58,10 +85,24 @@ public class docDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.doc_detail, container, false);
+        View rootTool = inflater.inflate(R.layout.activity_doc_detail, container, false);
 
 
-        String html_ = "<h2>Title</h2><br><p>Description here</p>";
+        Log.e("ImageUri:-->>>> ",ImageUri);
+        Drawable d = Drawable.createFromStream(ims, null);
+
+        ImageView ImageHeader = rootTool.findViewById(R.id.img_header);
+
+        //Bitmap bitmap = BitmapFactory.decodeStream(ims);
+        //mToolbar.setTitle("Teste");
+        // set image to ImageView "ic_action_about.png"
+
+        ImageHeader.setImageDrawable(d);
+
+
+        String html_ = contents;
 
         if (mItem != null) {
 
@@ -70,8 +111,6 @@ public class docDetailFragment extends Fragment {
             } else {
                 ((TextView) rootView.findViewById(R.id.doc_detail)).setText(Html.fromHtml(html_));
             }
-
-
         }
 
         return rootView;
