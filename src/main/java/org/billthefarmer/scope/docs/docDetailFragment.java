@@ -1,17 +1,12 @@
 package org.billthefarmer.scope.docs;
 import android.app.Activity;
 import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +30,7 @@ public class docDetailFragment extends Fragment {
     String contents = "";
     String ImageUri = "";
     InputStream ims = null;
+    BufferedReader reader = null;
 
     public docDetailFragment() {
     }
@@ -46,18 +42,19 @@ public class docDetailFragment extends Fragment {
         if (getArguments().containsKey(ARG_ITEM_ID)) {
 
             mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            Activity activity = this.getActivity();
 
+            ImageView ImageHeader = activity.findViewById(R.id.img_header);
             String file_name = mItem.id+".html";
             AssetManager mngr = getContext().getAssets();
-            ImageUri = mItem.image;
 
-            BufferedReader reader = null;
             String mLine;
 
             try {
                 reader = new BufferedReader(new InputStreamReader(mngr.open(file_name)));
-                ims = mngr.open("wave_audio.png");
-
+                ims = mngr.open(mItem.image);
+                Drawable d = Drawable.createFromStream(ims, null);
+                ImageHeader.setImageDrawable(d);
                 while ((mLine = reader.readLine()) != null) {
                         contents += '\n' + mLine;
 
@@ -74,7 +71,6 @@ public class docDetailFragment extends Fragment {
                 }
             }
 
-            Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
                 appBarLayout.setTitle(mItem.content);
@@ -87,25 +83,9 @@ public class docDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.doc_detail, container, false);
-        View rootTool = inflater.inflate(R.layout.activity_doc_detail, container, false);
-
-
-        Log.e("ImageUri:-->>>> ",ImageUri);
-        Drawable d = Drawable.createFromStream(ims, null);
-
-        ImageView ImageHeader = rootTool.findViewById(R.id.img_header);
-
-        //Bitmap bitmap = BitmapFactory.decodeStream(ims);
-        //mToolbar.setTitle("Teste");
-        // set image to ImageView "ic_action_about.png"
-
-        ImageHeader.setImageDrawable(d);
-
-
         String html_ = contents;
 
         if (mItem != null) {
-
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 ((TextView) rootView.findViewById(R.id.doc_detail)).setText(Html.fromHtml(html_, Html.FROM_HTML_MODE_COMPACT));
             } else {
