@@ -12,8 +12,8 @@ public class DummyContent {
     private static final int COUNT = 10;
 
     static {
-        addItem(new DummyItem("1","Texto número 1", "images/onda_sonora.jpg"));
-        addItem(new DummyItem("2","Texto número 2", "images/onda_sonora.jpg"));
+        addItem(new DummyItem("1","CONCEITOS FUNDAMENTAIS", "images/texto-01.png"));
+        addItem(new DummyItem("2","Texto número 2", "images/texto-01.png"));
         addItem(new DummyItem("3","Texto número 3", "images/onda_sonora.jpg"));
         addItem(new DummyItem("4","Texto número 4", "images/onda_sonora.jpg"));
         addItem(new DummyItem("5","Texto número 5", "images/onda_sonora.jpg"));

@@ -87,12 +87,35 @@ public class docDetailFragment extends Fragment {
 
         if (mItem != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                ((TextView) rootView.findViewById(R.id.doc_detail)).setText(Html.fromHtml(html_, Html.FROM_HTML_MODE_COMPACT));
+                ((TextView) rootView.findViewById(R.id.doc_detail))
+                        .setText(Html.fromHtml(html_, Html.FROM_HTML_MODE_LEGACY, new ImageGetter(), null));
             } else {
-                ((TextView) rootView.findViewById(R.id.doc_detail)).setText(Html.fromHtml(html_));
+                ((TextView) rootView.findViewById(R.id.doc_detail))
+                        .setText(Html.fromHtml(html_, new ImageGetter(),null));
             }
         }
 
         return rootView;
     }
+
+    private class ImageGetter implements Html.ImageGetter {
+
+        public Drawable getDrawable(String source) {
+            int id;
+            //Log.e("source -->>: ",source);
+            try{
+                id = getResources().getIdentifier(source, "drawable", getContext().getPackageName());
+                Drawable d = getResources().getDrawable(id);
+                d.setBounds(0,0,d.getIntrinsicWidth(),d.getIntrinsicHeight());
+                return d;
+
+            }catch (Exception e){
+                Log.e("ImageGetter:Exception ",e.toString());
+                return null;
+            }
+
+        }
+    };
+
+
 }
