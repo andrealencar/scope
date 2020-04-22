@@ -13,17 +13,18 @@ public class DummyContent {
 
     static {
         addItem(new DummyItem("1","CONCEITOS FUNDAMENTAIS", "images/texto-01.png"));
-        addItem(new DummyItem("2","Texto número 2", "images/texto-01.png"));
-        addItem(new DummyItem("3","Texto número 3", "images/onda_sonora.jpg"));
-        addItem(new DummyItem("4","Texto número 4", "images/onda_sonora.jpg"));
-        addItem(new DummyItem("5","Texto número 5", "images/onda_sonora.jpg"));
+        addItem(new DummyItem("2","FENÔMENOS ONDULATÓRIOS", "images/texto-01.png"));
+        addItem(new DummyItem("3","ONDAS PERIÓDICAS", "images/texto-01.png"));
+        addItem(new DummyItem("4","FÍSICA ACÚSTICA", "images/texto-01.png"));
+        addItem(new DummyItem("5","FENÔMENOS ONDULATÓRIOS – ONDAS SONORAS", "images/texto-01.png"));
+        addItem(new DummyItem("6","INSTRUMENTOS MUSICAIS", "images/texto-01.png"));
+        addItem(new DummyItem("7","LINKS E CURIOSIDADES SOBRE FÍSICA ACÚSTICA", "images/texto-01.png"));
     }
 
     private static void addItem(DummyItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
-
 
     public static class DummyItem {
 
