@@ -16,9 +16,11 @@ public class DummyContent {
         addItem(new DummyItem("2","FENÔMENOS ONDULATÓRIOS", "images/texto-01.png"));
         addItem(new DummyItem("3","ONDAS PERIÓDICAS", "images/texto-01.png"));
         addItem(new DummyItem("4","FÍSICA ACÚSTICA", "images/texto-01.png"));
-        addItem(new DummyItem("5","FENÔMENOS ONDULATÓRIOS – ONDAS SONORAS", "images/texto-01.png"));
-        addItem(new DummyItem("6","INSTRUMENTOS MUSICAIS", "images/texto-01.png"));
-        addItem(new DummyItem("7","LINKS E CURIOSIDADES SOBRE FÍSICA ACÚSTICA", "images/texto-01.png"));
+        addItem(new DummyItem("5","O OUVIDO HUMANO", "images/texto-01.png"));
+        addItem(new DummyItem("6","FENÔMENOS ONDULATÓRIOS – ONDAS SONORAS", "images/texto-01.png"));
+        addItem(new DummyItem("7","INSTRUMENTOS MUSICAIS", "images/texto-01.png"));
+        addItem(new DummyItem("8","QUESTIONÁRIO", "images/texto-01.png"));
+        addItem(new DummyItem("9","LINKS E CURIOSIDADES SOBRE FÍSICA ACÚSTICA", "images/texto-01.png"));
     }
 
     private static void addItem(DummyItem item) {
