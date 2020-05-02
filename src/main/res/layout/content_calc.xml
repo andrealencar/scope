@@ -11,12 +11,12 @@
 
 
     <EditText
-        android:id="@+id/frequencia"
+        android:id="@+id/input_frequencia"
         android:layout_width="320dp"
         android:layout_height="44dp"
         android:layout_weight="1"
         android:ems="10"
-        android:hint="Frenquência"
+        android:hint="Frenquência (hetz)"
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +52,7 @@
         android:id="@+id/result"
         android:layout_width="216dp"
         android:layout_height="101dp"
-        android:text="145.89"
+        android:text="000.00"
         android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
