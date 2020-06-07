@@ -37,9 +37,9 @@ import android.media.AudioTrack;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -326,7 +326,7 @@ public class SpectrumActivity extends AppCompatActivity
     void showAlert(int appName, int errorBuffer)
     {
         // Create an alert dialog builder
-        android.support.v7.app.AlertDialog.Builder builder =
+        androidx.appcompat.app.AlertDialog.Builder builder =
             new AlertDialog.Builder(this);
 
         // Set the title, message and button

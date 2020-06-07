@@ -30,7 +30,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-import android.support.v7.app.ActionBar;
+import androidx.appcompat.app.ActionBar;
 
 // SettingsFragment
 @SuppressWarnings("deprecation")
