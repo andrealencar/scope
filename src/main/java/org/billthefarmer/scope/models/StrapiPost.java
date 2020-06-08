@@ -1,5 +1,7 @@
 package org.billthefarmer.scope.models;
+
 import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class StrapiPost {

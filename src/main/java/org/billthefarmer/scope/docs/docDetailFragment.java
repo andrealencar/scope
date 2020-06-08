@@ -1,11 +1,10 @@
 package org.billthefarmer.scope.docs;
+
 import android.app.Activity;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import androidx.fragment.app.Fragment;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,12 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+
 import org.billthefarmer.scope.R;
-import org.billthefarmer.scope.docs.dummy.DummyContent;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 
 
 public class docDetailFragment extends Fragment {

@@ -22,6 +22,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 package org.billthefarmer.scope;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -31,6 +32,7 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
 import java.util.Locale;
 
 // Scope

@@ -22,12 +22,14 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 package org.billthefarmer.scope;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.MenuItem;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import android.view.MenuItem;
 
 // SettingsActivity
 public class SettingsActivity extends AppCompatActivity

@@ -1,42 +1,32 @@
 package org.billthefarmer.scope.docs;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import androidx.core.app.NavUtils;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import android.view.MenuItem;
-import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.billthefarmer.scope.AppExecutors;
-import org.billthefarmer.scope.MainActivity;
 import org.billthefarmer.scope.R;
-import org.billthefarmer.scope.database.PostDatabase;
-import org.billthefarmer.scope.database.UserDatabase;
+import org.billthefarmer.scope.database.AppDatabase;
 import org.billthefarmer.scope.docs.dummy.DummyContent;
 import org.billthefarmer.scope.models.Post;
-import org.billthefarmer.scope.models.StrapiPost;
-import org.billthefarmer.scope.models.User;
-import org.billthefarmer.scope.network.GetDataService;
-import org.billthefarmer.scope.network.RetrofitClientInstance;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * An activity representing a list of docs. This activity
@@ -53,7 +43,6 @@ public class docListActivity extends AppCompatActivity {
      * device.
      */
     private boolean mTwoPane;
-    PostDatabase mDb;
     public static final List<DummyContent.DummyItem> ITEMS = new ArrayList<DummyContent.DummyItem>();
 
     @Override
@@ -86,7 +75,7 @@ public class docListActivity extends AppCompatActivity {
         View recyclerView = findViewById(R.id.doc_list);
         assert recyclerView != null;
 
-        mDb = PostDatabase.getInstance(getApplicationContext());
+        AppDatabase mDb = AppDatabase.getInstance(getApplicationContext());
         ITEMS.clear();
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override

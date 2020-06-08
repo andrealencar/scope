@@ -22,6 +22,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 package org.billthefarmer.scope;
+
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -30,7 +31,6 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-import androidx.appcompat.app.ActionBar;
 
 // SettingsFragment
 @SuppressWarnings("deprecation")

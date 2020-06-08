@@ -9,8 +9,8 @@ public class Image {
     @PrimaryKey(autoGenerate = true)
     public int uid;
 
-    @ColumnInfo(name = "post_remote_id")
-    public int id;
+    @ColumnInfo(name = "id")
+    public String id;
 
     @ColumnInfo(name = "image_name")
     public String name;
@@ -34,7 +34,7 @@ public class Image {
     public String url;
 
     public Image(Integer uid,
-                 Integer remote_id,
+                 String id,
                  String name,
                  String alternativeText,
                  String caption,

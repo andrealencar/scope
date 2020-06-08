@@ -1,27 +1,31 @@
 package org.billthefarmer.scope.database;
 import android.content.Context;
 import android.util.Log;
+
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+
 import org.billthefarmer.scope.Dao.PostDao;
+import org.billthefarmer.scope.Dao.QuestionDao;
 import org.billthefarmer.scope.models.Post;
+import org.billthefarmer.scope.models.Question;
 
 
-@Database(entities = {Post.class}, version = 1)
-public abstract class PostDatabase extends RoomDatabase {
+@Database(entities = {Post.class, Question.class}, version = 1)
+public abstract class AppDatabase extends RoomDatabase {
 
-    private static final String LOG_TAG = PostDatabase.class.getSimpleName();
+    private static final String LOG_TAG = AppDatabase.class.getSimpleName();
     private static final Object LOCK = new Object();
-    private static final String DATABASE_NAME = "local_database";
-    private static PostDatabase sInstance;
+    private static final String DATABASE_NAME = "scope_db";
+    private static AppDatabase sInstance;
 
-    public static PostDatabase getInstance(Context context) {
+    public static AppDatabase getInstance(Context context) {
         if (sInstance == null) {
             synchronized (LOCK) {
                 Log.d(LOG_TAG, "Creating new database instance");
                 sInstance = Room.databaseBuilder(context.getApplicationContext(),
-                        PostDatabase.class, PostDatabase.DATABASE_NAME)
+                        AppDatabase.class, AppDatabase.DATABASE_NAME)
                         .build();
             }
         }
@@ -30,4 +34,5 @@ public abstract class PostDatabase extends RoomDatabase {
     }
 
     public abstract PostDao postDao();
+    public abstract QuestionDao questionDao();
 }

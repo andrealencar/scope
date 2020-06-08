@@ -22,6 +22,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 package org.billthefarmer.scope;
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,10 +37,6 @@ import android.media.AudioTrack;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -49,16 +46,23 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.billthefarmer.scope.calc.CalcActivity;
-import org.billthefarmer.scope.database.PostDatabase;
-import org.billthefarmer.scope.database.UserDatabase;
+import org.billthefarmer.scope.database.AppDatabase;
 import org.billthefarmer.scope.docs.docListActivity;
+import org.billthefarmer.scope.models.Alternative;
 import org.billthefarmer.scope.models.Post;
+import org.billthefarmer.scope.models.Question;
 import org.billthefarmer.scope.models.StrapiPost;
-import org.billthefarmer.scope.models.User;
+import org.billthefarmer.scope.models.StrapiQuestion;
+import org.billthefarmer.scope.models.StrapiQuestionAlternative;
 import org.billthefarmer.scope.network.GetDataService;
 import org.billthefarmer.scope.network.RetrofitClientInstance;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -82,8 +86,6 @@ public class MainActivity extends AppCompatActivity
     private static final String START = "start";
     private static final String INDEX = "index";
     private static final String LEVEL = "level";
-    PostDatabase mDb;
-
 
 
     private static final float values[] =
@@ -144,6 +146,7 @@ public class MainActivity extends AppCompatActivity
         //actionBar.hide();
         actionBar.setTitle("Osciloscópio");
         updtatePosts();
+        updtateQuestions();
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.ic_launcher);
@@ -407,11 +410,72 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    void updtateQuestions(){
+
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        Call<List<StrapiQuestion>> call = service.ListQuestions();
+        AppDatabase mDb = AppDatabase.getInstance(getApplicationContext());
+        call.enqueue(new Callback<List<StrapiQuestion>>() {
+            @Override
+            public void onResponse(Call<List<StrapiQuestion>> call, Response<List<StrapiQuestion>> response) {
+
+                List<StrapiQuestion> questions = response.body();
+                for (int i = 0; i < questions.size(); i++) {
+
+                    Question question       = new Question();
+                    question.id             = questions.get(i).getId();
+                    question.title          = questions.get(i).getTitle();
+
+                    Log.d("ADD question Id-->>",  questions.get(i).getId());
+                    Log.d("ADD question Title-->>",  questions.get(i).getTitle());
+
+                    List<StrapiQuestionAlternative>  strapi_alternative = questions.get(i).getAlternatives();
+                    List<Alternative> alternatives = new ArrayList<Alternative>();
+                    Alternative alternative  = new Alternative();
+
+                    for (int a = 0; a < strapi_alternative.size(); a++) {
+                        alternative.id          = strapi_alternative.get(a).getId();
+                        alternative.title       = strapi_alternative.get(a).getTitle();
+                        alternative.letra       = strapi_alternative.get(a).getLetra();
+                        alternative.question    = strapi_alternative.get(a).getQuestion();
+                        alternative.correct     = strapi_alternative.get(a).getCorrect();
+                        Log.d("Alternatives Title-->>",  strapi_alternative.get(a).getTitle());
+                        alternatives.add(alternative);
+                    }
+
+                    //question.alternatives   = alternatives;
+
+                    AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            Question item = mDb.questionDao().findById(question.id);
+                            //String id = item.id;
+                            if(item == null){
+                                //mDb.questionDao().insertQuestion(question);
+                                Log.d("ADD question -->>", question.title);
+                            }else{
+                                question.uid = item.uid;
+                                //mDb.questionDao().updateQuestion(question);
+                                Log.d("UPdate question -->>", question.title);
+                            }
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<StrapiQuestion>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Sem concexão com a Internet!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
     void updtatePosts(){
 
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         Call<List<StrapiPost>> call = service.ListPosts();
-        mDb = PostDatabase.getInstance(getApplicationContext());
+        AppDatabase mDb = AppDatabase.getInstance(getApplicationContext());
         call.enqueue(new Callback<List<StrapiPost>>() {
             @Override
             public void onResponse(Call<List<StrapiPost>> call, Response<List<StrapiPost>> response) {
@@ -428,14 +492,16 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void run() {
                             Post PostFind = mDb.postDao().findById(post.id);
-                            String id = PostFind.id;
-                            if(id == null){
+                            //String id = PostFind.id;
+                            //Log.d("PostFind -->>", PostFind.toString());
+
+                            if(PostFind == null){
                                 mDb.postDao().insertPost(post);
-                                Log.d("ADD post -->>", PostFind.title);
+                                //Log.d("ADD post -->>", post.title);
                             }else{
                                 post.uid = PostFind.uid;
                                 mDb.postDao().updatePost(post);
-                                Log.d("UPdate post -->>", post.title);
+                                //Log.d("UPdate post -->>", post.title);
                             }
                         }
                     });
