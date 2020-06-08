@@ -8,10 +8,11 @@ import java.util.List;
 public class Post {
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "uid")
     public int uid;
 
-    @ColumnInfo(name = "post_remote_id")
-    public int id;
+    @ColumnInfo(name = "id")
+    public String id;
 
     @ColumnInfo(name = "post_title")
     public String title;
@@ -24,6 +25,5 @@ public class Post {
 
 //    @ColumnInfo(name = "post_images")
 //    public List<Image> images;
-
 
 }

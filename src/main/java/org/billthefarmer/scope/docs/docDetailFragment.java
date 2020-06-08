@@ -24,7 +24,13 @@ import java.io.InputStreamReader;
 public class docDetailFragment extends Fragment {
 
     public static final String ARG_ITEM_ID = "item_id";
-    private DummyContent.DummyItem mItem;
+    public static final String ARG_ITEM_TITLE = "item_title";
+    public static final String ARG_ITEM_TEXT = "item_text";
+    public static final String ARG_ITEM_IMAGE = "item_image";
+    private static String mItem = "";
+    private static String textItem = "";
+    private static String imagetItem = "";
+    private static String titletItem = "";
 
     String contents = "";
     String ImageUri = "";
@@ -40,39 +46,27 @@ public class docDetailFragment extends Fragment {
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
 
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-            Activity activity = this.getActivity();
+            mItem       = getArguments().getString(ARG_ITEM_ID);
+            titletItem  = getArguments().getString(ARG_ITEM_TITLE);
+            textItem    = getArguments().getString(ARG_ITEM_TEXT);
+            imagetItem  = getArguments().getString(ARG_ITEM_IMAGE);
+            //Log.d("DummyItem-->", mItem+" -- "+titletItem+"--"+imagetItem);
 
+            Activity activity = this.getActivity();
             ImageView ImageHeader = activity.findViewById(R.id.img_header);
-            String file_name = mItem.id+".html";
             AssetManager mngr = getContext().getAssets();
 
-            String mLine;
-
             try {
-                reader = new BufferedReader(new InputStreamReader(mngr.open(file_name)));
-                ims = mngr.open(mItem.image);
-                Drawable d = Drawable.createFromStream(ims, null);
-                ImageHeader.setImageDrawable(d);
-                while ((mLine = reader.readLine()) != null) {
-                        contents += '\n' + mLine;
-
-                }
+                ims = mngr.open(imagetItem);
             } catch (IOException e) {
-                            Log.e("ERROR message: ",e.getMessage());
-            } finally {
-                if (reader != null) {
-                    try {
-                            reader.close();
-                    } catch (IOException e) {
-                            Log.e("ERROR message: ",e.getMessage());
-                    }
-                }
+                e.printStackTrace();
             }
+            Drawable d = Drawable.createFromStream(ims, null);
+            ImageHeader.setImageDrawable(d);
 
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
+                appBarLayout.setTitle(titletItem);
             }
         }
     }
@@ -82,7 +76,7 @@ public class docDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.doc_detail, container, false);
-        String html_ = contents;
+        String html_ = textItem;
 
         if (mItem != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

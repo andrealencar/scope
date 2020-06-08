@@ -12,17 +12,17 @@ public class DummyContent {
     private static final int COUNT = 10;
 
 
-    static {
-        addItem(new DummyItem("1","CONCEITOS FUNDAMENTAIS", "images/texto-01.png"));
-        addItem(new DummyItem("2","FENÔMENOS ONDULATÓRIOS", "images/texto-01.png"));
-        addItem(new DummyItem("3","ONDAS PERIÓDICAS", "images/texto-01.png"));
-        addItem(new DummyItem("4","FÍSICA ACÚSTICA", "images/texto-01.png"));
-        addItem(new DummyItem("5","O OUVIDO HUMANO", "images/texto-01.png"));
-        addItem(new DummyItem("6","FENÔMENOS ONDULATÓRIOS – ONDAS SONORAS", "images/texto-01.png"));
-        addItem(new DummyItem("7","INSTRUMENTOS MUSICAIS", "images/texto-01.png"));
-        addItem(new DummyItem("8","QUESTIONÁRIO", "images/texto-01.png"));
-        addItem(new DummyItem("9","LINKS E CURIOSIDADES SOBRE FÍSICA ACÚSTICA", "images/texto-01.png"));
-    }
+//    static {
+//        addItem(new DummyItem("1","CONCEITOS FUNDAMENTAIS", "images/texto-01.png"));
+//        addItem(new DummyItem("2","FENÔMENOS ONDULATÓRIOS", "images/texto-01.png"));
+//        addItem(new DummyItem("3","ONDAS PERIÓDICAS", "images/texto-01.png"));
+//        addItem(new DummyItem("4","FÍSICA ACÚSTICA", "images/texto-01.png"));
+//        addItem(new DummyItem("5","O OUVIDO HUMANO", "images/texto-01.png"));
+//        addItem(new DummyItem("6","FENÔMENOS ONDULATÓRIOS – ONDAS SONORAS", "images/texto-01.png"));
+//        addItem(new DummyItem("7","INSTRUMENTOS MUSICAIS", "images/texto-01.png"));
+//        addItem(new DummyItem("8","QUESTIONÁRIO", "images/texto-01.png"));
+//        addItem(new DummyItem("9","LINKS E CURIOSIDADES SOBRE FÍSICA ACÚSTICA", "images/texto-01.png"));
+//    }
 
     private static void addItem(DummyItem item) {
         ITEMS.add(item);
@@ -33,10 +33,12 @@ public class DummyContent {
 
         public final String id;
         public final String content;
+        public final String text;
         public final String image;
 
-        public DummyItem(String id, String content,String image) {
+        public DummyItem(String id, String content,String text,String image) {
             this.id = id;
+            this.text = text;
             this.content = content;
             this.image = image;
         }

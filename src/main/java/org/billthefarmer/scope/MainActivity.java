@@ -50,6 +50,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import org.billthefarmer.scope.calc.CalcActivity;
+import org.billthefarmer.scope.database.PostDatabase;
 import org.billthefarmer.scope.database.UserDatabase;
 import org.billthefarmer.scope.docs.docListActivity;
 import org.billthefarmer.scope.models.Post;
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity
     private static final String START = "start";
     private static final String INDEX = "index";
     private static final String LEVEL = "level";
-    UserDatabase  mDb;
+    PostDatabase mDb;
 
 
 
@@ -142,45 +143,7 @@ public class MainActivity extends AppCompatActivity
         ActionBar actionBar = getSupportActionBar();
         //actionBar.hide();
         actionBar.setTitle("Osciloscópio");
-
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-        Call<List<StrapiPost>> call = service.ListPosts();
-
-        call.enqueue(new Callback<List<StrapiPost>>() {
-            @Override
-            public void onResponse(Call<List<StrapiPost>> call, Response<List<StrapiPost>> response) {
-
-                    List<StrapiPost> posts = response.body();
-                    for (int i = 0; i < posts.size(); i++) {
-                        System.out.println("---->>"+posts.get(i).getId());
-                        System.out.println("---->>"+posts.get(i).getTitle());
-                        System.out.println("---->>"+posts.get(i).getImages());
-                    }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<StrapiPost>> call, Throwable t) {
-
-                Log.d("onFailure ->", t.toString());
-                Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mDb = UserDatabase.getInstance(getApplicationContext());
-        User user = new User();
-        user.firstName = "Andre";
-        user.lastName = "Alencar";
-
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                //final List<User> users = mDb.userDao().getAll();
-                //Log.d("USERS", users.toString());
-                //mDb.userDao().insertUser(user);
-                //Log.d("ADD user", user.toString());
-            }
-        });
+        updtatePosts();
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.ic_launcher);
@@ -442,6 +405,49 @@ public class MainActivity extends AppCompatActivity
         }
 
         return true;
+    }
+
+    void updtatePosts(){
+
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        Call<List<StrapiPost>> call = service.ListPosts();
+        mDb = PostDatabase.getInstance(getApplicationContext());
+        call.enqueue(new Callback<List<StrapiPost>>() {
+            @Override
+            public void onResponse(Call<List<StrapiPost>> call, Response<List<StrapiPost>> response) {
+
+                List<StrapiPost> posts = response.body();
+                for (int i = 0; i < posts.size(); i++) {
+
+                    Post post   = new Post();
+                    post.id     = posts.get(i).getId();
+                    post.title  = posts.get(i).getTitle();
+                    post.text   = posts.get(i).getText();
+
+                    AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            Post PostFind = mDb.postDao().findById(post.id);
+                            String id = PostFind.id;
+                            if(id == null){
+                                mDb.postDao().insertPost(post);
+                                Log.d("ADD post -->>", PostFind.title);
+                            }else{
+                                post.uid = PostFind.uid;
+                                mDb.postDao().updatePost(post);
+                                Log.d("UPdate post -->>", post.title);
+                            }
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<StrapiPost>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Sem concexão com a Internet!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     // On docs click

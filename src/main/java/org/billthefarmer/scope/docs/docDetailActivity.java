@@ -30,6 +30,16 @@ public class docDetailActivity extends AppCompatActivity {
             arguments.putString(docDetailFragment.ARG_ITEM_ID,
                     getIntent().getStringExtra(docDetailFragment.ARG_ITEM_ID));
 
+            arguments.putString(docDetailFragment.ARG_ITEM_TEXT,
+                    getIntent().getStringExtra(docDetailFragment.ARG_ITEM_TEXT));
+
+            arguments.putString(docDetailFragment.ARG_ITEM_IMAGE,
+                    getIntent().getStringExtra(docDetailFragment.ARG_ITEM_IMAGE));
+
+            arguments.putString(docDetailFragment.ARG_ITEM_TITLE,
+                    getIntent().getStringExtra(docDetailFragment.ARG_ITEM_TITLE));
+
+
             docDetailFragment fragment = new docDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()

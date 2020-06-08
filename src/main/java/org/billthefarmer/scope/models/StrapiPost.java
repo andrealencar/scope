@@ -22,10 +22,10 @@ public class StrapiPost {
         this.text = text;
         this.images = images;
     }
+
     public String getId() {
         return id;
     }
-
     public String getTitle() {
         return title;
     }
