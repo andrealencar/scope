@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +17,22 @@ import android.widget.TextView;
 import androidx.core.app.NavUtils;
 import androidx.appcompat.app.ActionBar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import org.billthefarmer.scope.MainActivity;
 import org.billthefarmer.scope.R;
+import org.billthefarmer.scope.database.UserDatabase;
 import org.billthefarmer.scope.docs.dummy.DummyContent;
+import org.billthefarmer.scope.models.Post;
+import org.billthefarmer.scope.models.StrapiPost;
+import org.billthefarmer.scope.network.GetDataService;
+import org.billthefarmer.scope.network.RetrofitClientInstance;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * An activity representing a list of docs. This activity
@@ -36,6 +49,7 @@ public class docListActivity extends AppCompatActivity {
      * device.
      */
     private boolean mTwoPane;
+    UserDatabase  mDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +85,29 @@ public class docListActivity extends AppCompatActivity {
         View recyclerView = findViewById(R.id.doc_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
+        mDb = UserDatabase.getInstance(getApplicationContext());
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+
+        Call<List<StrapiPost>> call = service.ListPosts();
+
+        call.enqueue(new Callback<List<StrapiPost>>() {
+            @Override
+            public void onResponse(Call<List<StrapiPost>> call, Response<List<StrapiPost>> response) {
+
+                Log.d("posts ->", response.body().toString());
+
+                for (int i = 0; i < response.body().size(); i++) {
+                    System.out.println(response.body().get(i));
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<StrapiPost>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override

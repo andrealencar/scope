@@ -39,6 +39,8 @@ import android.preference.PreferenceManager;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,7 +50,20 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import org.billthefarmer.scope.calc.CalcActivity;
+import org.billthefarmer.scope.database.UserDatabase;
 import org.billthefarmer.scope.docs.docListActivity;
+import org.billthefarmer.scope.models.Post;
+import org.billthefarmer.scope.models.StrapiPost;
+import org.billthefarmer.scope.models.User;
+import org.billthefarmer.scope.network.GetDataService;
+import org.billthefarmer.scope.network.RetrofitClientInstance;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 // MainActivity
 public class MainActivity extends AppCompatActivity
@@ -66,6 +81,9 @@ public class MainActivity extends AppCompatActivity
     private static final String START = "start";
     private static final String INDEX = "index";
     private static final String LEVEL = "level";
+    UserDatabase  mDb;
+
+
 
     private static final float values[] =
     {
@@ -97,16 +115,13 @@ public class MainActivity extends AppCompatActivity
     protected static final float LARGE_SCALE = 200000;
 
     protected int timebase;
-
     private Scope scope;
     private XScale xscale;
     private YScale yscale;
     private Unit unit;
-
     private Audio audio;
     private Toast toast;
     private SubMenu submenu;
-
     private boolean dark;
 
     // On create
@@ -114,24 +129,58 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
         getPreferences();
-
 
         if (!dark)
             setTheme(R.style.AppDarkTheme);
 
         setContentView(R.layout.activity_main);
-
         scope = findViewById(R.id.scope);
         xscale = findViewById(R.id.xscale);
         yscale = findViewById(R.id.yscale);
         unit = findViewById(R.id.unit);
-
-        // Get action bar
         ActionBar actionBar = getSupportActionBar();
         //actionBar.hide();
         actionBar.setTitle("Osciloscópio");
+
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        Call<List<StrapiPost>> call = service.ListPosts();
+
+        call.enqueue(new Callback<List<StrapiPost>>() {
+            @Override
+            public void onResponse(Call<List<StrapiPost>> call, Response<List<StrapiPost>> response) {
+
+                    List<StrapiPost> posts = response.body();
+                    for (int i = 0; i < posts.size(); i++) {
+                        System.out.println("---->>"+posts.get(i).getId());
+                        System.out.println("---->>"+posts.get(i).getTitle());
+                        System.out.println("---->>"+posts.get(i).getImages());
+                    }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<StrapiPost>> call, Throwable t) {
+
+                Log.d("onFailure ->", t.toString());
+                Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mDb = UserDatabase.getInstance(getApplicationContext());
+        User user = new User();
+        user.firstName = "Andre";
+        user.lastName = "Alencar";
+
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                //final List<User> users = mDb.userDao().getAll();
+                //Log.d("USERS", users.toString());
+                //mDb.userDao().insertUser(user);
+                //Log.d("ADD user", user.toString());
+            }
+        });
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.ic_launcher);

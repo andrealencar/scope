@@ -11,6 +11,7 @@ public class DummyContent {
     public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
     private static final int COUNT = 10;
 
+
     static {
         addItem(new DummyItem("1","CONCEITOS FUNDAMENTAIS", "images/texto-01.png"));
         addItem(new DummyItem("2","FENÔMENOS ONDULATÓRIOS", "images/texto-01.png"));
