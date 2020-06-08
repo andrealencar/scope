@@ -12,7 +12,7 @@ import org.billthefarmer.scope.models.Post;
 import org.billthefarmer.scope.models.Question;
 
 
-@Database(entities = {Post.class, Question.class}, version = 1)
+@Database(entities = {Post.class, Question.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String LOG_TAG = AppDatabase.class.getSimpleName();
@@ -26,6 +26,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 Log.d(LOG_TAG, "Creating new database instance");
                 sInstance = Room.databaseBuilder(context.getApplicationContext(),
                         AppDatabase.class, AppDatabase.DATABASE_NAME)
+                        .fallbackToDestructiveMigration()
                         .build();
             }
         }

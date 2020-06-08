@@ -439,11 +439,12 @@ public class MainActivity extends AppCompatActivity
                         alternative.letra       = strapi_alternative.get(a).getLetra();
                         alternative.question    = strapi_alternative.get(a).getQuestion();
                         alternative.correct     = strapi_alternative.get(a).getCorrect();
-                        Log.d("Alternatives Title-->>",  strapi_alternative.get(a).getTitle());
                         alternatives.add(alternative);
                     }
 
-                    //question.alternatives   = alternatives;
+                    question.alternatives   = alternatives;
+
+                    //Log.d("Alternatives Title-->>",  question.alternatives.toString());
 
                     AppExecutors.getInstance().diskIO().execute(new Runnable() {
                         @Override
@@ -451,11 +452,11 @@ public class MainActivity extends AppCompatActivity
                             Question item = mDb.questionDao().findById(question.id);
                             //String id = item.id;
                             if(item == null){
-                                //mDb.questionDao().insertQuestion(question);
+                                mDb.questionDao().insertQuestion(question);
                                 Log.d("ADD question -->>", question.title);
                             }else{
                                 question.uid = item.uid;
-                                //mDb.questionDao().updateQuestion(question);
+                                mDb.questionDao().updateQuestion(question);
                                 Log.d("UPdate question -->>", question.title);
                             }
                         }
