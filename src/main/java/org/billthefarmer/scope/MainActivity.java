@@ -426,8 +426,8 @@ public class MainActivity extends AppCompatActivity
                     question.id             = questions.get(i).getId();
                     question.title          = questions.get(i).getTitle();
 
-                    Log.d("ADD question Id-->>",  questions.get(i).getId());
-                    Log.d("ADD question Title-->>",  questions.get(i).getTitle());
+                    //Log.d("ADD question Id-->>",  questions.get(i).getId());
+                    //Log.d("ADD question Title-->>",  questions.get(i).getTitle());
 
                     List<StrapiQuestionAlternative>  strapi_alternative = questions.get(i).getAlternatives();
                     List<Alternative> alternatives = new ArrayList<Alternative>();
@@ -443,7 +443,6 @@ public class MainActivity extends AppCompatActivity
                     }
 
                     question.alternatives   = alternatives;
-
                     //Log.d("Alternatives Title-->>",  question.alternatives.toString());
 
                     AppExecutors.getInstance().diskIO().execute(new Runnable() {
