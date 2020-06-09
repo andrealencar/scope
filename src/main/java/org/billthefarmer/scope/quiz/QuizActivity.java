@@ -1,7 +1,6 @@
 package org.billthefarmer.scope.quiz;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
@@ -27,13 +26,10 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        Log.d("onOptions-->>", String.valueOf(id)+ "--"+ android.R.id.home);
-
         if (id == android.R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
