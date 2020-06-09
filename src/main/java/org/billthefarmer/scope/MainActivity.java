@@ -60,6 +60,7 @@ import org.billthefarmer.scope.models.StrapiQuestion;
 import org.billthefarmer.scope.models.StrapiQuestionAlternative;
 import org.billthefarmer.scope.network.GetDataService;
 import org.billthefarmer.scope.network.RetrofitClientInstance;
+import org.billthefarmer.scope.quiz.QuizActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -358,8 +359,8 @@ public class MainActivity extends AppCompatActivity
 
 
         //Calc
-            case R.id.action_calc:
-                return onCalcClick(item);
+            case R.id.action_quiz:
+                return onQuizClick(item);
 
         //Docs
             case R.id.action_docs:
@@ -531,7 +532,13 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
         return true;
     }
-
+    // On quiz click
+    private boolean onQuizClick(MenuItem item)
+    {
+        Intent intent = new Intent(this, QuizActivity.class);
+        startActivity(intent);
+        return true;
+    }
     // On settings click
     private boolean onSettingsClick(MenuItem item)
     {

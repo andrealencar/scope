@@ -7,10 +7,10 @@
     tools:ignore="AlwaysShowAction">
 
   <item
-      android:id="@+id/action_calc"
-      android:icon="@drawable/ic_calc_40"
-      app:showAsAction="always"
-      android:title="Funções">
+      android:id="@+id/action_quiz"
+      android:icon="@drawable/ic_test"
+      android:title="Quiz"
+      app:showAsAction="always">
 
   </item>
 
