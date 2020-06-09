@@ -111,7 +111,7 @@ public class docDetailFragment extends Fragment {
             }
 
         }
-    };
+    }
 
 
 }
