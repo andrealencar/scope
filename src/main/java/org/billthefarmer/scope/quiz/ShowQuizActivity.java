@@ -1,5 +1,4 @@
 package org.billthefarmer.scope.quiz;
-
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -16,10 +15,8 @@ import androidx.core.app.NavUtils;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import org.billthefarmer.scope.AppExecutors;
 import org.billthefarmer.scope.R;
 import org.billthefarmer.scope.ViewModel.BaseViewModel;
-import org.billthefarmer.scope.database.AppDatabase;
 import org.billthefarmer.scope.models.Question;
 
 import java.util.ArrayList;
@@ -52,8 +49,12 @@ public class ShowQuizActivity extends AppCompatActivity {
         mViewModel = new ViewModelProvider(this).get(BaseViewModel.class);
         mViewModel.getQuestions().observe(this, new Observer<List<Question>>() {
             @Override
-            public void onChanged(List<Question> questions) {
-                Log.d("mViewModel 1-->>", String.valueOf(questions));
+            public void onChanged(List<Question> questions_) {
+                for (int i = 0; i < questions_.size(); i++) {
+                    String id = String.valueOf(questions_.get(i).uid);
+                    questions.add(questions_.get(i));
+                    Log.d("quetions id-->>",id);
+                }
             }
         });
 
@@ -174,23 +175,12 @@ public class ShowQuizActivity extends AppCompatActivity {
     }
     
     private void LoadQuestions(){
-            AppDatabase mDb = AppDatabase.getInstance(getApplicationContext());
-            AppExecutors.getInstance().diskIO().execute(new Runnable() {
-                @Override
-                public void run() {
-                    questions = mDb.questionDao().getAll();
-                    for (int i = 0; i < questions.size(); i++) {
-                        String id = String.valueOf(questions.get(i).uid);
-                        Log.d("quetions id-->>",id);
-                    }
-                }
-            });
             ShowHideForm(false);
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mViewModel.SetQuestions(questions);
+
                     SetCurrentQuestion(currentQuestionNum,limitQuestionNum);
                     ShowHideForm(true);
                 }
