@@ -426,14 +426,14 @@ public class MainActivity extends AppCompatActivity
                     question.id             = questions.get(i).getId();
                     question.title          = questions.get(i).getTitle();
 
-                    //Log.d("ADD question Id-->>",  questions.get(i).getId());
-                    //Log.d("ADD question Title-->>",  questions.get(i).getTitle());
-
                     List<StrapiQuestionAlternative>  strapi_alternative = questions.get(i).getAlternatives();
-                    List<Alternative> alternatives = new ArrayList<Alternative>();
-                    Alternative alternative  = new Alternative();
+                    ArrayList<Alternative> alternatives    = new ArrayList<Alternative>();
+
+//                    Log.d(" question Id-->>",  questions.get(i).getId());
+//                    Log.d(" question Title-->>", questions.get(i).getTitle());
 
                     for (int a = 0; a < strapi_alternative.size(); a++) {
+                        Alternative alternative = new Alternative();
                         alternative.id          = strapi_alternative.get(a).getId();
                         alternative.title       = strapi_alternative.get(a).getTitle();
                         alternative.letra       = strapi_alternative.get(a).getLetra();
@@ -443,13 +443,14 @@ public class MainActivity extends AppCompatActivity
                     }
 
                     question.alternatives   = alternatives;
+
+                    //Log.d(" qtd alternatives->>", String.valueOf(question.alternatives.size()));
                     //Log.d("Alternatives Title-->>",  question.alternatives.toString());
 
                     AppExecutors.getInstance().diskIO().execute(new Runnable() {
                         @Override
                         public void run() {
                             Question item = mDb.questionDao().findById(question.id);
-                            //String id = item.id;
                             if(item == null){
                                 mDb.questionDao().insertQuestion(question);
                                 Log.d("ADD question -->>", question.title);

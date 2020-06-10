@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import org.billthefarmer.scope.R;
 import org.billthefarmer.scope.ViewModel.BaseViewModel;
+import org.billthefarmer.scope.models.Alternative;
 import org.billthefarmer.scope.models.Question;
 
 import java.util.ArrayList;
@@ -151,6 +152,11 @@ public class ShowQuizActivity extends AppCompatActivity {
         ShowHideForm(false);
     }
 
+    private void ShowAlternatives(Boolean status){
+
+
+    }
+
     private void ShowHideForm(Boolean status){
         try{
             if(status.equals(true)){
@@ -191,9 +197,30 @@ public class ShowQuizActivity extends AppCompatActivity {
     private void SetCurrentQuestion(int question,int total_question){
             String stringFormat = String.format(Locale.US,"Questão %2d/%02d",question+1,total_question);
             try{
-                currentQuestion = questions.get(question);
+                currentQuestion = questions.get(0);
                 current_question_view.setText(stringFormat);
                 question_view.setText(currentQuestion.title);
+                ArrayList<Alternative> alternatives =  currentQuestion.alternatives;
+
+                for (int i = 0; i < alternatives.size(); i++) {
+                    String id    = alternatives.get(i).id;
+                    String title    = alternatives.get(i).title;
+                    if(i == 0){
+                        btn1.setText(title);
+                    }
+                    if(i == 1){
+                        btn2.setText(title);
+                    }
+                    if(i == 2){
+                        btn3.setText(title);
+                    }
+                    if(i == 3){
+                        btn4.setText(title);
+                    }
+//                    Log.d("alternatives title-->>",id);
+//                    Log.d("alternatives id-->>",title);
+                }
+
             }catch (Exception e){
                 Log.d("Exception-->>", String.valueOf(e));
             }

@@ -3,9 +3,8 @@ package org.billthefarmer.scope.models;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
 
-import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 public class Question {
@@ -23,9 +22,8 @@ public class Question {
     @ColumnInfo(name = "question_title")
     public String title;
 
-    @TypeConverters(QuestionTypeConverters.class)
     @ColumnInfo(name = "question_alternatives")
-    public List<Alternative> alternatives;
+    public ArrayList<Alternative> alternatives = new ArrayList<>();
 
 }
 

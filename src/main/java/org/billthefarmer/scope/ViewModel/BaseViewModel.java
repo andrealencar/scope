@@ -1,5 +1,4 @@
 package org.billthefarmer.scope.ViewModel;
-
 import android.app.Application;
 import android.os.Handler;
 
