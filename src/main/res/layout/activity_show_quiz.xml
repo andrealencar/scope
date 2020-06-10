@@ -8,11 +8,25 @@
     android:layout_height="match_parent"
     tools:context=".quiz.ShowQuizActivity">
 
+
+    <ProgressBar
+        android:id="@+id/view_loading"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.347" />
+
     <TextView
         android:id="@+id/textView_clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="15dp"
         android:text="00:00"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
@@ -20,32 +34,27 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView_qnumber"
+        android:id="@+id/textView_current_question"
         android:layout_width="122dp"
         android:layout_height="21dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:text="Questão 01/05"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintHorizontal_bias="0.145"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_question"
-        android:layout_width="match_parent"
+        android:layout_width="334dp"
         android:layout_height="wrap_content"
         android:background="#fafafa"
         android:gravity="start"
-        android:padding="10dp"
-        android:text="(IFGO) As ondas são formas
-        de transferência de energia de uma região para outra.
-        Existem ondas mecânicas – que precisam de meios materiais
-        para se propagarem – e ondas eletromagnéticas –
-        que podem se propagar tanto no vácuo como em alguns
-        meios materiais. Sobre ondas, podemos afirmar corretamente que:"
-        android:textAlignment="textStart"
         android:justificationMode="inter_word"
-        android:textSize="18dp"
+        android:padding="20dp"
+        android:text="..."
+        android:textAlignment="textStart"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,54 +62,54 @@
         app:layout_constraintVertical_bias="0.106" />
 
     <Button
-        android:id="@+id/button_repose_2"
+        android:id="@+id/button_response_1"
         android:layout_width="357dp"
         android:layout_height="62dp"
         android:text="Ondas sonoras e ondas sísmicas são exemplos de ondas mecânicas"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.518" />
+        app:layout_constraintVertical_bias="0.384" />
 
     <Button
-        android:id="@+id/button_repose_3"
+        android:id="@+id/button_response_2"
         android:layout_width="357dp"
         android:layout_height="62dp"
         android:text="Ondas sonoras e ondas sísmicas são exemplos de ondas mecânicas"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75" />
+        app:layout_constraintVertical_bias="0.715" />
 
     <Button
-        android:id="@+id/button_repose_1"
+        android:id="@+id/button_response_3"
         android:layout_width="357dp"
         android:layout_height="62dp"
         android:text="Ondas sonoras e ondas sísmicas são exemplos de ondas mecânicas"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.406" />
+        app:layout_constraintVertical_bias="0.499" />
 
     <Button
-        android:id="@+id/button_repose_5"
+        android:id="@+id/button_response_4"
         android:layout_width="357dp"
         android:layout_height="62dp"
         android:text="Ondas sonoras e ondas sísmicas são exemplos de ondas mecânicas"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.641" />
+        app:layout_constraintVertical_bias="0.607" />
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -112,11 +121,10 @@
         <Button
             android:id="@+id/button_cancel_quiz"
             android:layout_width="match_parent"
-            android:background="#fafaf"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="#fafafa"
             android:text="Cancelar" />
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
