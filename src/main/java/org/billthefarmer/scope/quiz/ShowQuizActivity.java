@@ -1,5 +1,6 @@
 package org.billthefarmer.scope.quiz;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -26,6 +27,7 @@ import org.billthefarmer.scope.models.Question;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 public class ShowQuizActivity extends AppCompatActivity implements OnClickListener {
 
@@ -33,6 +35,7 @@ public class ShowQuizActivity extends AppCompatActivity implements OnClickListen
     int currentQuestionNum  = 0;
     int limitQuestionNum    = 5;
     int AlternativeCorrect  = 0;
+    int QuestionsCount      = 0;
     Question currentQuestion;
     List<Question> questions = new ArrayList<>();
     Button btn1;
@@ -59,15 +62,7 @@ public class ShowQuizActivity extends AppCompatActivity implements OnClickListen
                 for (int i = 0; i < questions_.size(); i++) {
                     String id = String.valueOf(questions_.get(i).uid);
                     questions.add(questions_.get(i));
-                    Log.d("quetions id-->>",id);
                 }
-            }
-        });
-
-        mViewModel.getCurrentQuestion().observe(this, new Observer<Question>() {
-            @Override
-            public void onChanged(Question question) {
-                Log.d("mViewModel 2-->>", String.valueOf(questions));
             }
         });
 
@@ -76,7 +71,6 @@ public class ShowQuizActivity extends AppCompatActivity implements OnClickListen
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        LoadQuestions();
         StartCountTime();
 
         list_buttons = new Button[4];
@@ -97,7 +91,7 @@ public class ShowQuizActivity extends AppCompatActivity implements OnClickListen
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                SetCurrentQuestion(currentQuestionNum,limitQuestionNum);
+                RandomQuestion();
             }
         }, 500);
 
@@ -131,6 +125,8 @@ public class ShowQuizActivity extends AppCompatActivity implements OnClickListen
                 list_buttons[i].setTextColor(text_color);
             }
         }
+
+        NextQuiz();
     }
 
     @Override
@@ -143,20 +139,46 @@ public class ShowQuizActivity extends AppCompatActivity implements OnClickListen
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        ShowHideForm(true);
-    };
+    private void ResetColors(){
+        int bg_color = Color.parseColor("#ffffff");
+        int text_color    = Color.parseColor("#212121");
+        for(int i=0; i< list_buttons.length; i++) {
+            Button btn_ = list_buttons[i];
+            btn_.setTextColor(text_color);
+            list_buttons[i].setBackgroundColor(bg_color);
+        }
 
-    private void NextQuiz(int correct){
-        LoadQuestions();
+    }
+
+    private void NextQuiz(){
+
+        EnableButtons(false);
+        StopCountTime();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                RandomQuestion();
+                QuestionsCount = QuestionsCount+1;
+                EnableButtons(true);
+                StartCountTime();
+            }
+        }, 500);
+
     }
 
     private void EndQuiz(){
         ShowHideForm(false);
+        Intent intent = new Intent(getApplicationContext(),EndQuizActivity.class);
+        startActivity(intent);
     }
 
+    private void EnableButtons(Boolean status){
+        for(int i=0; i< list_buttons.length; i++) {
+            Button btn_ =  list_buttons[i];
+            btn_.setEnabled(status);
+        }
+    }
 
     private void ShowHideForm(Boolean status){
         try{
@@ -173,7 +195,6 @@ public class ShowQuizActivity extends AppCompatActivity implements OnClickListen
                     loading.setVisibility(View.VISIBLE);
                     btn_.setVisibility(View.INVISIBLE);
                 }
-                Log.d(" Loop/Button-->>", String.valueOf(i)+"--"+btn_.getId());
             }
 
         }catch (Exception e){
@@ -181,24 +202,34 @@ public class ShowQuizActivity extends AppCompatActivity implements OnClickListen
         }
 
     }
-    
-    private void LoadQuestions(){
-            ShowHideForm(false);
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    SetCurrentQuestion(currentQuestionNum,limitQuestionNum);
-                    ShowHideForm(true);
-                }
-            }, 500);
 
-    }
+    private void RandomQuestion(){
+        ShowHideForm(false);
+        int limit = questions.size();
+        final int random = new Random().nextInt(limit) + 1;
+        int random_ = random-1;
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ShowHideForm(true);
+                SetCurrentQuestion(random_,limit);
+                ResetColors();
+            }
+        }, 500);
+
+    };
 
     private void SetCurrentQuestion(int question,int total_question){
-            String stringFormat = String.format(Locale.US,"Questão %2d/%02d",question+1,total_question);
+            String stringFormat = String.format(Locale.US,"Questão %02d/%02d",QuestionsCount,total_question);
+
+            if(QuestionsCount >= limitQuestionNum){
+                    StopCountTime();
+                    EndQuiz();
+            }
+
             try{
-                currentQuestion = questions.get(0);
+                currentQuestion = questions.get(question);
                 current_question_view.setText(stringFormat);
                 question_view.setText(currentQuestion.title);
                 ArrayList<Alternative> alternatives =  currentQuestion.alternatives;
@@ -211,10 +242,9 @@ public class ShowQuizActivity extends AppCompatActivity implements OnClickListen
                     if(correct){
                         AlternativeCorrect = i;
                     }
-
-//                    Log.d("alternatives title-->>",id);
-//                    Log.d("alternatives id-->>",title);
                 }
+
+                ShowHideForm(true);
 
             }catch (Exception e){
                 Log.d("Exception-->>", String.valueOf(e));
@@ -229,16 +259,12 @@ public class ShowQuizActivity extends AppCompatActivity implements OnClickListen
                 int seconds = (int) (millisUntilFinished/1000);
                 String clock = String.valueOf(seconds);
                 String stringFormat = String.format(Locale.US,"00:%02d",seconds);
-
-                Log.d("StartCountTime -->>", stringFormat);
                 clock_view.setText(stringFormat);
             }
 
             @Override
             public void onFinish() {
-                EndQuiz();
-                Log.d("onFinish -->>","");
-
+                NextQuiz();
             }
         }.start();
     }

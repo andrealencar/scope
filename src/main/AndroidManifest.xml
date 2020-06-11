@@ -14,7 +14,10 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-
+        <activity
+            android:label="Final do Quiz"
+            android:name=".quiz.EndQuizActivity">
+        </activity>
         <activity
             android:name=".quiz.ShowQuizActivity"
             android:label="ShowQuiz"
