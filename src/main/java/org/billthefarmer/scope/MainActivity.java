@@ -440,6 +440,9 @@ public class MainActivity extends AppCompatActivity
                         alternative.question    = strapi_alternative.get(a).getQuestion();
                         alternative.correct     = strapi_alternative.get(a).getCorrect();
                         alternatives.add(alternative);
+
+//                        Log.d("alternative Title-->>", alternative.title  );
+//                        Log.d("alternative correct-->>", String.valueOf(alternative.correct));
                     }
 
                     question.alternatives   = alternatives;

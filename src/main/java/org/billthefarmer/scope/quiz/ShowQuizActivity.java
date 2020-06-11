@@ -1,10 +1,13 @@
 package org.billthefarmer.scope.quiz;
+
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -24,11 +27,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class ShowQuizActivity extends AppCompatActivity {
+public class ShowQuizActivity extends AppCompatActivity implements OnClickListener {
 
-    int clock = 0;
-    int currentQuestionNum = 0;
-    int limitQuestionNum = 5;
+    int clock               = 0;
+    int currentQuestionNum  = 0;
+    int limitQuestionNum    = 5;
+    int AlternativeCorrect  = 0;
     Question currentQuestion;
     List<Question> questions = new ArrayList<>();
     Button btn1;
@@ -42,6 +46,7 @@ public class ShowQuizActivity extends AppCompatActivity {
     CountDownTimer timer = null;
     ProgressBar loading;
     BaseViewModel mViewModel;
+    Button[] list_buttons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,10 +79,14 @@ public class ShowQuizActivity extends AppCompatActivity {
         LoadQuestions();
         StartCountTime();
 
-        btn1            = findViewById(R.id.button_response_1);
-        btn2            = findViewById(R.id.button_response_2);
-        btn3            = findViewById(R.id.button_response_3);
-        btn4            = findViewById(R.id.button_response_4);
+        list_buttons = new Button[4];
+        for(int i=0; i<list_buttons.length; i++) {
+                String buttonID = "button_response_" + (i+1);
+                int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
+                list_buttons[i] = findViewById(resID);
+                list_buttons[i].setOnClickListener(this);
+        }
+
         btnCancel       = findViewById(R.id.button_cancel_quiz);
         question_view   = findViewById(R.id.textView_question);
         clock_view      = findViewById(R.id.textView_clock);
@@ -92,32 +101,6 @@ public class ShowQuizActivity extends AppCompatActivity {
             }
         }, 500);
 
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NextQuiz();
-            }
-        });
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NextQuiz();
-            }
-        });
-        btn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NextQuiz();
-            }
-        });
-
-        btn4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NextQuiz();
-            }
-        });
-
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,6 +109,28 @@ public class ShowQuizActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        int correct_color = Color.parseColor("#009624");
+        int wrong_color   = Color.parseColor("#ff3d00");
+        int text_color    = Color.parseColor("#ffffff");
+
+        int index = 0;
+        for (int i = 0; i < list_buttons.length; i++) {
+            if (list_buttons[i].getId() == v.getId()) {
+                index = i;
+            }
+            if(AlternativeCorrect == i){
+                list_buttons[i].setBackgroundColor(correct_color);
+                list_buttons[i].setTextColor(text_color);
+            }else{
+                list_buttons[i].setBackgroundColor(wrong_color);
+                list_buttons[i].setTextColor(text_color);
+            }
+        }
     }
 
     @Override
@@ -144,7 +149,7 @@ public class ShowQuizActivity extends AppCompatActivity {
         ShowHideForm(true);
     };
 
-    private void NextQuiz(){
+    private void NextQuiz(int correct){
         LoadQuestions();
     }
 
@@ -152,30 +157,27 @@ public class ShowQuizActivity extends AppCompatActivity {
         ShowHideForm(false);
     }
 
-    private void ShowAlternatives(Boolean status){
-
-
-    }
 
     private void ShowHideForm(Boolean status){
         try{
-            if(status.equals(true)){
-                btn1.setVisibility(View.VISIBLE);
-                btn2.setVisibility(View.VISIBLE);
-                btn3.setVisibility(View.VISIBLE);
-                btn4.setVisibility(View.VISIBLE);
-                question_view.setVisibility(View.VISIBLE);
-                loading.setVisibility(View.INVISIBLE);
-            }else{
-                btn1.setVisibility(View.INVISIBLE);
-                btn2.setVisibility(View.INVISIBLE);
-                btn3.setVisibility(View.INVISIBLE);
-                btn4.setVisibility(View.INVISIBLE);
-                question_view.setVisibility(View.INVISIBLE);
-                loading.setVisibility(View.VISIBLE);
-            }
-        }catch (Exception e){
 
+            for(int i=0; i< list_buttons.length; i++) {
+                Button btn_ =  list_buttons[i];
+                if(status.equals(true)){
+                    loading.setVisibility(View.INVISIBLE);
+                    btn_.setVisibility(View.VISIBLE);
+                    question_view.setVisibility(View.VISIBLE);
+
+                }else{
+                    question_view.setVisibility(View.INVISIBLE);
+                    loading.setVisibility(View.VISIBLE);
+                    btn_.setVisibility(View.INVISIBLE);
+                }
+                Log.d(" Loop/Button-->>", String.valueOf(i)+"--"+btn_.getId());
+            }
+
+        }catch (Exception e){
+            Log.d("Error/ShowHideForm-->>", String.valueOf(e));
         }
 
     }
@@ -186,7 +188,6 @@ public class ShowQuizActivity extends AppCompatActivity {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-
                     SetCurrentQuestion(currentQuestionNum,limitQuestionNum);
                     ShowHideForm(true);
                 }
@@ -204,19 +205,13 @@ public class ShowQuizActivity extends AppCompatActivity {
 
                 for (int i = 0; i < alternatives.size(); i++) {
                     String id    = alternatives.get(i).id;
-                    String title    = alternatives.get(i).title;
-                    if(i == 0){
-                        btn1.setText(title);
+                    String title = alternatives.get(i).title;
+                    Boolean correct = alternatives.get(i).correct;
+                    list_buttons[i].setText(title);
+                    if(correct){
+                        AlternativeCorrect = i;
                     }
-                    if(i == 1){
-                        btn2.setText(title);
-                    }
-                    if(i == 2){
-                        btn3.setText(title);
-                    }
-                    if(i == 3){
-                        btn4.setText(title);
-                    }
+
 //                    Log.d("alternatives title-->>",id);
 //                    Log.d("alternatives id-->>",title);
                 }
