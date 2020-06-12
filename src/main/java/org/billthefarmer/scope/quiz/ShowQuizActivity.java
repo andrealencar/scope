@@ -135,12 +135,12 @@ public class ShowQuizActivity extends AppCompatActivity implements OnClickListen
                 index = i;
                 if(AlternativeCorrect == i) {
                     correct_count++;
-                    list_buttons[i].setBackgroundColor(correct_color);
-                    list_buttons[i].setTextColor(text_color);
+                    //list_buttons[i].setBackgroundColor(correct_color);
+                    //list_buttons[i].setTextColor(text_color);
                 }else{
                     error_count++;
-                    list_buttons[i].setBackgroundColor(wrong_color);
-                    list_buttons[i].setTextColor(text_color);
+                    //list_buttons[i].setBackgroundColor(wrong_color);
+                    //list_buttons[i].setTextColor(text_color);
                 }
             }
 
