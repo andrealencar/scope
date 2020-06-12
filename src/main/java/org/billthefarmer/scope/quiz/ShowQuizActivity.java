@@ -36,6 +36,9 @@ public class ShowQuizActivity extends AppCompatActivity implements OnClickListen
     int limitQuestionNum    = 5;
     int AlternativeCorrect  = 0;
     int QuestionsCount      = 0;
+    int correct_count       = 0;
+    int error_count         = 0;
+
     Question currentQuestion;
     List<Question> questions = new ArrayList<>();
     Button btn1;
@@ -105,6 +108,20 @@ public class ShowQuizActivity extends AppCompatActivity implements OnClickListen
         });
     }
 
+    private void EndQuiz(){
+
+        ShowHideForm(false);
+        Intent intent                        = new Intent(getApplicationContext(),EndQuizActivity.class);
+        String error_count_string            = String.valueOf(error_count);
+        String correct_count_string          = String.valueOf(correct_count);
+        String correct_count_questions_count = String.valueOf(limitQuestionNum);
+
+        intent.putExtra("error_count",error_count_string);
+        intent.putExtra("correct_count", correct_count_string);
+        intent.putExtra("questions_count", correct_count_questions_count);
+        startActivity(intent);
+    }
+
     @Override
     public void onClick(View v) {
 
@@ -116,15 +133,25 @@ public class ShowQuizActivity extends AppCompatActivity implements OnClickListen
         for (int i = 0; i < list_buttons.length; i++) {
             if (list_buttons[i].getId() == v.getId()) {
                 index = i;
+                if(AlternativeCorrect == i) {
+                    correct_count++;
+                }else{
+                    error_count++;
+                }
             }
             if(AlternativeCorrect == i){
                 list_buttons[i].setBackgroundColor(correct_color);
                 list_buttons[i].setTextColor(text_color);
+
             }else{
                 list_buttons[i].setBackgroundColor(wrong_color);
                 list_buttons[i].setTextColor(text_color);
+
             }
         }
+
+//        Log.d("error_count-->>",  "> "+error_count);
+//        Log.d("correct_count-->>",  "> "+correct_count);
 
         NextQuiz();
     }
@@ -167,11 +194,6 @@ public class ShowQuizActivity extends AppCompatActivity implements OnClickListen
 
     }
 
-    private void EndQuiz(){
-        ShowHideForm(false);
-        Intent intent = new Intent(getApplicationContext(),EndQuizActivity.class);
-        startActivity(intent);
-    }
 
     private void EnableButtons(Boolean status){
         for(int i=0; i< list_buttons.length; i++) {
@@ -191,9 +213,9 @@ public class ShowQuizActivity extends AppCompatActivity implements OnClickListen
                     question_view.setVisibility(View.VISIBLE);
 
                 }else{
-                    question_view.setVisibility(View.INVISIBLE);
-                    loading.setVisibility(View.VISIBLE);
                     btn_.setVisibility(View.INVISIBLE);
+                    loading.setVisibility(View.VISIBLE);
+                    question_view.setVisibility(View.VISIBLE);
                 }
             }
 
