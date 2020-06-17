@@ -5,158 +5,72 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/text_clock"
-    android:isScrollContainer="true"
-    android:background="#efefef"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".quiz.ShowQuizActivity">
-
-    <ProgressBar
-        android:id="@+id/view_loading"
-        style="?android:attr/progressBarStyleSmall"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.347" />
-
-    <TextView
-        android:id="@+id/textView_clock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="00:00"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.925"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView_current_question"
-        android:layout_width="122dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="16dp"
-        android:text="Questão 01/05"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.145"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/textView_question"
-        android:layout_width="408dp"
-        android:layout_height="wrap_content"
-        android:background="#263238"
-        android:gravity="start"
-        android:justificationMode="inter_word"
-        android:padding="16dp"
-        android:scrollbarAlwaysDrawHorizontalTrack="true"
-        android:text="..."
-        android:textAlignment="textStart"
-        android:textColor="#ffffff"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.089" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="412dp"
-        android:layout_height="552dp"
-        android:padding="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_question"
-        app:layout_constraintVertical_bias="0.143">
+        android:id="@+id/layout_geral"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#efefef"
+        android:isScrollContainer="true"
+        android:padding="10sp"
+        tools:context=".quiz.ShowQuizActivity">
 
-        <Button
-            android:id="@+id/button_response_1"
+        <include
+            android:id="@+id/include_top"
+            layout="@layout/top_quiz_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:padding="5dp"
-            android:textAlignment="textStart"
-            android:visibility="invisible"
+            android:layout_height="35dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.525"
+            app:layout_constraintHorizontal_bias="0.521"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/button_response_2"
+        <include
+            android:id="@+id/include_question"
+            layout="@layout/quiz_text_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:gravity="start"
-            android:padding="5dp"
-            android:textAlignment="textStart"
-            android:visibility="invisible"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.842"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_response_1" />
+            app:layout_constraintTop_toBottomOf="@+id/include_top" />
 
-        <Button
-            android:id="@+id/button_response_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:padding="5dp"
-            android:textAlignment="textStart"
-            android:visibility="invisible"
+        <ProgressBar
+            android:id="@+id/view_loading"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_response_2"
-            app:layout_constraintVertical_bias="0.095" />
-
-        <Button
-            android:id="@+id/button_response_4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:padding="5dp"
-            android:textAlignment="textStart"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.825"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_response_3"
-            app:layout_constraintVertical_bias="0.107" />
-
-        <LinearLayout
-            android:id="@+id/linearLayoutBottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:layout_editor_absoluteX="28dp">
+            app:layout_constraintVertical_bias="0.347" />
 
-            <Button
-                android:id="@+id/button_cancel_quiz"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="#fafafa"
-                android:text="Cancelar" />
-        </LinearLayout>
+
+        <include
+            android:id="@+id/include_buttons"
+            layout="@layout/quiz_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_question" />
+
+        <include
+            android:id="@+id/include_footer"
+            layout="@layout/quiz_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_buttons" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
