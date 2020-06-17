@@ -231,7 +231,7 @@ public class ShowQuizActivity extends AppCompatActivity implements OnClickListen
             @Override
             public void run() {
                 ShowHideForm(true);
-                SetCurrentQuestion(random_,limit);
+                SetCurrentQuestion(random_,limitQuestionNum);
                 ResetColors();
             }
         }, 500);
@@ -270,7 +270,7 @@ public class ShowQuizActivity extends AppCompatActivity implements OnClickListen
     }
 
     private void StartCountTime(){
-            timer = new CountDownTimer(30000, 1000) {
+            timer = new CountDownTimer(60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 

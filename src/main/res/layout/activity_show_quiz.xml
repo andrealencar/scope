@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+<androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/text_clock"
+    android:isScrollContainer="true"
     android:background="#efefef"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -64,8 +69,8 @@
         app:layout_constraintVertical_bias="0.089" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="411dp"
-        android:layout_height="479dp"
+        android:layout_width="412dp"
+        android:layout_height="552dp"
         android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -78,10 +83,10 @@
             android:id="@+id/button_response_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
             android:gravity="start"
             android:padding="5dp"
             android:textAlignment="textStart"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.525"
             app:layout_constraintStart_toStartOf="parent"
@@ -92,10 +97,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:visibility="invisible"
-            android:padding="5dp"
             android:gravity="start"
+            android:padding="5dp"
             android:textAlignment="textStart"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_response_1" />
@@ -106,8 +111,8 @@
             android:layout_height="wrap_content"
             android:gravity="start"
             android:padding="5dp"
-            android:visibility="invisible"
             android:textAlignment="textStart"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.4"
@@ -120,9 +125,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
+            android:padding="5dp"
             android:textAlignment="textStart"
             android:visibility="invisible"
-            android:padding="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.825"
@@ -130,27 +135,28 @@
             app:layout_constraintTop_toBottomOf="@+id/button_response_3"
             app:layout_constraintVertical_bias="0.107" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="28dp">
-
-        <Button
-            android:id="@+id/button_cancel_quiz"
+        <LinearLayout
+            android:id="@+id/linearLayoutBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="#fafafa"
-            android:text="Cancelar" />
-    </LinearLayout>
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            tools:layout_editor_absoluteX="28dp">
+
+            <Button
+                android:id="@+id/button_cancel_quiz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#fafafa"
+                android:text="Cancelar" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
