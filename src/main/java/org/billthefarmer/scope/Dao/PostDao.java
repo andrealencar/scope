@@ -14,7 +14,7 @@ import java.util.List;
 @Dao
 public interface PostDao {
 
-    @Query("SELECT * FROM post")
+    @Query("SELECT * FROM post ORDER BY post.`order` ASC")
     List<Post> getAll();
 
     @Query("SELECT * FROM post WHERE post_title LIKE :first AND " +

@@ -490,6 +490,7 @@ public class MainActivity extends AppCompatActivity
                     Post post   = new Post();
                     post.id     = posts.get(i).getId();
                     post.title  = posts.get(i).getTitle();
+                    post.order  = posts.get(i).getOrder();
                     post.text   = posts.get(i).getText();
 
                     AppExecutors.getInstance().diskIO().execute(new Runnable() {
@@ -505,7 +506,7 @@ public class MainActivity extends AppCompatActivity
                             }else{
                                 post.uid = PostFind.uid;
                                 mDb.postDao().updatePost(post);
-                                //Log.d("UPdate post -->>", post.title);
+                                Log.d("UPdate post -->>", String.valueOf(post.order));
                             }
                         }
                     });

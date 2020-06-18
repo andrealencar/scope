@@ -12,15 +12,19 @@ public class StrapiPost {
     @SerializedName("title")
     private String title;
 
+    @SerializedName("order")
+    private Integer order;
+
     @SerializedName("text")
     private String text;
 
     @SerializedName("images")
     private List<StrapiImage> images;
 
-    public StrapiPost(String id, String title, String text,List<StrapiImage> images) {
+    public StrapiPost(String id, String title, String text,Integer order,List<StrapiImage> images) {
         this.id = id;
         this.title = title;
+        this.order = order;
         this.text = text;
         this.images = images;
     }
@@ -34,10 +38,16 @@ public class StrapiPost {
     public String getText() {
         return text;
     }
+    public Integer getOrder() {
+        return order;
+    }
     public List<StrapiImage> getImages() {
         return images;
     }
 
+    public void setOrder(Integer id) {
+        this.order = order;
+    }
     public void setId(String id) {
         this.id = id;
     }

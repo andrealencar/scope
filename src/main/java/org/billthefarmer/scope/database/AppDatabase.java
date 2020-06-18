@@ -15,7 +15,7 @@ import org.billthefarmer.scope.models.Question;
 import org.billthefarmer.scope.models.QuestionTypeConverters;
 
 
-@Database(entities = {Post.class, Question.class}, version = 7)
+@Database(entities = {Post.class, Question.class}, version = 9)
 @TypeConverters({QuestionTypeConverters.class})
 public abstract class AppDatabase extends RoomDatabase {
 

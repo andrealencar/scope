@@ -73,7 +73,7 @@ public class docListActivity extends AppCompatActivity {
                 final List<Post> posts = mDb.postDao().getAll();
 
                 for (int i = 0; i < posts.size(); i++) {
-                    String id = String.valueOf(posts.get(i).uid);
+                    String id = String.valueOf(posts.get(i).order);
                     DummyContent.DummyItem item = new DummyContent.DummyItem(id,
                                                                         posts.get(i).title,
                                                                         posts.get(i).text,
